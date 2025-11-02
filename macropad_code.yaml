@@ -1,0 +1,182 @@
+esphome:
+  name: "Gridfinity_macropad"
+  on_boot:
+    priority: -10
+    then:
+    - lambda: |-
+        for (auto state : {id(key_1_click_state), id(key_2_click_state), id(key_3_click_state),
+                           id(key_4_click_state), id(key_5_click_state), id(key_6_click_state),
+                           id(key_7_click_state), id(key_8_click_state), id(key_9_click_state)}){
+          state->publish_state(false);
+        }
+
+  project:
+    name: "EspDeck.v3"
+    version: "3.0.0"
+
+esp8266:
+  board: esp01_1m
+
+logger:
+api:
+  encryption:
+    key: #Insert encryption key here
+ota:
+  platform: esphome
+
+wifi:
+  ssid: #Insert Wifi name here
+  password: #Insert Wifi password here
+
+  ap:
+    ssid: "Esphome-Web"
+    password: "supersecretpassword"
+
+captive_portal:
+
+matrix_keypad:
+  id: espdeck_keypad
+  rows:
+  - pin: 1
+  - pin: 3
+  - pin: 2
+  columns:
+  - pin: 13
+  - pin: 12
+  - pin: 14
+  keys: "123456789"
+  has_diodes: false
+
+binary_sensor:
+- platform: template
+  name: "Keypad 1 Click"
+  id: key_1_click_state
+- platform: template
+  name: "Keypad 2 Click"
+  id: key_2_click_state
+- platform: template
+  name: "Keypad 3 Click"
+  id: key_3_click_state
+- platform: template
+  name: "Keypad 4 Click"
+  id: key_4_click_state
+- platform: template
+  name: "Keypad 5 Click"
+  id: key_5_click_state
+- platform: template
+  name: "Keypad 6 Click"
+  id: key_6_click_state
+- platform: template
+  name: "Keypad 7 Click"
+  id: key_7_click_state
+- platform: template
+  name: "Keypad 8 Click"
+  id: key_8_click_state
+- platform: template
+  name: "Keypad 9 Click"
+  id: key_9_click_state
+
+- platform: matrix_keypad
+  keypad_id: espdeck_keypad
+  id: key1
+  key: 1
+  on_click:
+    then:
+    - lambda: !lambda |-
+        id(key_1_click_state).publish_state(true);
+    - delay: 50ms
+    - lambda: !lambda |-
+        id(key_1_click_state).publish_state(false);
+- platform: matrix_keypad
+  keypad_id: espdeck_keypad
+  id: key2
+  key: 2
+  on_click:
+    then:
+    - lambda: !lambda |-
+        id(key_2_click_state).publish_state(true);
+    - delay: 50ms
+    - lambda: !lambda |-
+        id(key_2_click_state).publish_state(false);
+- platform: matrix_keypad
+  keypad_id: espdeck_keypad
+  id: key3
+  key: 3
+  on_click:
+    then:
+    - lambda: !lambda |-
+        id(key_3_click_state).publish_state(true);
+    - delay: 50ms
+    - lambda: !lambda |-
+        id(key_3_click_state).publish_state(false);
+- platform: matrix_keypad
+  keypad_id: espdeck_keypad
+  id: key4
+  key: 4
+  on_click:
+    then:
+    - lambda: !lambda |-
+        id(key_4_click_state).publish_state(true);
+    - delay: 50ms
+    - lambda: !lambda |-
+        id(key_4_click_state).publish_state(false);
+- platform: matrix_keypad
+  keypad_id: espdeck_keypad
+  id: key5
+  key: 5
+  on_click:
+    then:
+    - lambda: !lambda |-
+        id(key_5_click_state).publish_state(true);
+    - delay: 50ms
+    - lambda: !lambda |-
+        id(key_5_click_state).publish_state(false);
+- platform: matrix_keypad
+  keypad_id: espdeck_keypad
+  id: key6
+  key: 6
+  on_click:
+    then:
+    - lambda: !lambda |-
+        id(key_6_click_state).publish_state(true);
+    - delay: 50ms
+    - lambda: !lambda |-
+        id(key_6_click_state).publish_state(false);
+- platform: matrix_keypad
+  keypad_id: espdeck_keypad
+  id: key7
+  key: 7
+  on_click:
+    then:
+    - lambda: !lambda |-
+        id(key_7_click_state).publish_state(true);
+    - delay: 50ms
+    - lambda: !lambda |-
+        id(key_7_click_state).publish_state(false);
+- platform: matrix_keypad
+  keypad_id: espdeck_keypad
+  id: key8
+  key: 8
+  on_click:
+    then:
+    - lambda: !lambda |-
+        id(key_8_click_state).publish_state(true);
+    - delay: 50ms
+    - lambda: !lambda |-
+        id(key_8_click_state).publish_state(false);
+- platform: matrix_keypad
+  keypad_id: espdeck_keypad
+  id: key9
+  key: 9
+  on_click:
+    then:
+    - lambda: !lambda |-
+        id(key_9_click_state).publish_state(true);
+    - delay: 50ms
+    - lambda: !lambda |-
+        id(key_9_click_state).publish_state(false);
+- platform: status
+  name: "Keypad Status"
+
+
+
